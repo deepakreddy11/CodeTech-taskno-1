@@ -1,0 +1,50 @@
+#include <iostream>
+#include <vector>
+#include <string>
+
+using namespace std;
+
+// Structure to hold a question, its options, and the correct answer
+struct Question {
+    string questionText;
+    vector<string> options;
+    int correctAnswer; // Index of the correct option (0-based)
+};
+
+void displayQuestion(const Question& q, int questionNumber) {
+    cout << "Question " << questionNumber << ": " << q.questionText << endl;
+    for (size_t i = 0; i < q.options.size(); ++i) {
+        cout << i + 1 << ". " << q.options[i] << endl;
+    }
+}
+
+int main() {
+    vector<Question> quiz = {
+        {"What is the capital of France?", {"Berlin", "Madrid", "Paris", "Rome"}, 2},
+        {"Which planet is known as the Red Planet?", {"Earth", "Mars", "Jupiter", "Venus"}, 1},
+        {"What is the largest mammal?", {"Elephant", "Blue Whale", "Great White Shark", "Giraffe"}, 1},
+        {"What is the chemical symbol for water?", {"H2O", "O2", "CO2", "N2"}, 0},
+        {"Which language is primarily used for Android app development?", {"Swift", "Java", "C#", "Python"}, 1}
+    };
+
+    int score = 0;
+    int userAnswer;
+
+    for (size_t i = 0; i < quiz.size(); ++i) {
+        displayQuestion(quiz[i], i + 1);
+        cout << "Your answer (1-" << quiz[i].options.size() << "): ";
+        cin >> userAnswer;
+
+        if (userAnswer - 1 == quiz[i].correctAnswer) {
+            cout << "Correct!" << endl;
+            score++;
+        } else {
+            cout << "Wrong! The correct answer is: " << quiz[i].options[quiz[i].correctAnswer] << endl;
+        }
+        cout << endl;
+    }
+
+    cout << "Quiz Over! Your total score is: " << score << " out of " << quiz.size() << endl;
+
+    return 0;
+}
